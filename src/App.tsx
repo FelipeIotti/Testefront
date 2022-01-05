@@ -6,7 +6,7 @@ interface Data {
   id: number;
   velocity: string;
   rpm: string;
-  fuel: string;
+  tanklevel: string;
   temperature: string;
 }
 
@@ -15,12 +15,13 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      api.get('generalData/getPageData').then(response =>setData(response.data));
+      api.get('carData/listLastOne').then(response =>setData(response.data));
+      
     }, 100);
     return () => clearInterval(interval);
   }, []);
 
-  
+  console.log(data);
   return (
     <div className={styles.content} >
       <div className={styles.container2}>
@@ -44,7 +45,7 @@ function App() {
       <div className={styles.container2}>
       <div  className={styles.container}>
         {
-          data.fuel
+          data.tanklevel
         }
         
       </div>

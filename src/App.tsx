@@ -14,9 +14,12 @@ function App() {
   const [data, setData] = useState({} as Data);
 
   useEffect(() => {
+    async function fetchData() {
+      const response = await api.get('carData/listLastOne');
+      setData(response.data);
+    }
     const interval = setInterval(() => {
-      api.get('carData/listLastOne').then(response =>setData(response.data));
-      
+      fetchData();    
     }, 100);
     return () => clearInterval(interval);
   }, []);
